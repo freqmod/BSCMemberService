@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.DataProtection.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection;
 
 public class MemberContext : IdentityDbContext<User, MemberRole, string, IdentityUserClaim<string>, UserRole, IdentityUserLogin<string>, IdentityRoleClaim<string>, IdentityUserToken<string>>, IDataProtectionKeyContext
 {
@@ -39,7 +40,13 @@ public class MemberContext : IdentityDbContext<User, MemberRole, string, Identit
     public DbSet<DataProtectionKey> DataProtectionKeys { get; set; }
 
     public DbSet<VippsReservation> VippsReservations { get; set; }
-
+    
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        //string dbPath = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(Assembly.GetEntryAssembly().Location), "/persisent/sqlitedb.db");
+        optionsBuilder.UseSqlite($"Filename=/persistent/sqlitedb.db");
+    }
+    
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);
