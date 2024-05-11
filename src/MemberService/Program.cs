@@ -79,7 +79,7 @@ services.AddHttpClient("Vipps", client =>
 
 services
     .AddDbContext<MemberContext>(o => o
-        .UseSqlServer(configuration.GetConnectionString("DefaultConnection"))
+        .UseSqlite(configuration.GetConnectionString("DefaultConnection"))
         .UseExpressionify(o => o.WithEvaluationMode(ExpressionEvaluationMode.FullCompatibilityButSlow)));
 
 services
@@ -220,6 +220,10 @@ Global.Services = app.Services;
 
 using (var scope = app.Services.CreateScope())
 {
+    scope.ServiceProvider
+        .GetRequiredService<MemberContext>()
+        .Database.EnsureCreated();
+
     await scope.ServiceProvider
         .GetRequiredService<MemberContext>()
         .Database.MigrateAsync();
@@ -238,6 +242,7 @@ app
         .UseExceptionHandler("/Home/Error")
         .UseHsts())
     .UseHttpsRedirection()
+    .UsePathBase(new PathString("/bsc/"))
     .UseStaticFiles()
     .UseRouting()
     .UseRequestLocalization()

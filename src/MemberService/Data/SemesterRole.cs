@@ -36,7 +36,7 @@ public class SemesterRole : IEntityTypeConfiguration<SemesterRole>
     public void Configure(EntityTypeBuilder<SemesterRole> semesterRoles)
     {
         semesterRoles
-            .ToTable(nameof(MemberContext.SemesterRoles), b => b.IsTemporal());
+            .ToTable(nameof(MemberContext.SemesterRoles));
 
         semesterRoles
             .HasKey(nameof(SemesterId), nameof(UserId));
