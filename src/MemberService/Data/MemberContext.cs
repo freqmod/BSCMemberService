@@ -43,8 +43,7 @@ public class MemberContext : IdentityDbContext<User, MemberRole, string, Identit
     
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        //string dbPath = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(Assembly.GetEntryAssembly().Location), "/persisent/sqlitedb.db");
-        optionsBuilder.UseSqlite($"Filename=/persistent/sqlitedb.db");
+        optionsBuilder.UseNpgsql("Host=/persistent;Database=bscweb;Username=username;Password=password");
     }
     
     protected override void OnModelCreating(ModelBuilder builder)

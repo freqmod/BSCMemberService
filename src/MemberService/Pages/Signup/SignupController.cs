@@ -48,7 +48,7 @@ public class SignupController : Controller
                 Description = e.Description,
                 HasClosed = e.HasClosed(),
                 IsCancelled = e.Cancelled,
-                IsArchived = e.Archived || !e.Semester.IsActive(),
+                IsArchived = e.Archived, 
                 IsOpen = e.IsOpen(),
                 Options = e.SignupOptions,
                 SurveyId = e.SurveyId

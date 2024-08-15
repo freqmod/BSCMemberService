@@ -79,7 +79,8 @@ services.AddHttpClient("Vipps", client =>
 
 services
     .AddDbContext<MemberContext>(o => o
-        .UseSqlite(configuration.GetConnectionString("DefaultConnection"))
+        .UseNpgsql(configuration.GetConnectionString("DefaultConnection"))
+        //.UseSqlite(configuration.GetConnectionString("DefaultConnection"))
         .UseExpressionify(o => o.WithEvaluationMode(ExpressionEvaluationMode.FullCompatibilityButSlow)));
 
 services
@@ -215,6 +216,8 @@ services
     });
 
 var app = builder.Build();
+
+AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
 Global.Services = app.Services;
 
