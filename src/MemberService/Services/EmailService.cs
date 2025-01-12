@@ -71,6 +71,7 @@ public class EmailService : IEmailService
             await client.DisconnectAsync(true);
         }
 #endif
+    }
 
     private static string Replace(string value, User user, EventStatusModel model)
         => value
