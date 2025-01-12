@@ -61,14 +61,14 @@ services
         .GetRequiredService<IUrlHelperFactory>()
         .GetUrlHelper(x.GetRequiredService<IActionContextAccessor>().ActionContext));
 
-/*services.AddHttpClient("Vipps-auth", client =>
+services.AddHttpClient("Vipps-auth", client =>
 {
     client.BaseAddress = new Uri(config.Vipps.BaseUrl);
     client.DefaultRequestHeaders.Add("client_id", config.Authentication.Vipps.ClientId);
     client.DefaultRequestHeaders.Add("client_secret", config.Authentication.Vipps.ClientSecret);
     client.DefaultRequestHeaders.Add("Ocp-Apim-Subscription-Key", config.Vipps.SubscriptionKey);
     client.Timeout = TimeSpan.FromSeconds(5);
-});*/
+});
 
 services.AddHttpClient("Vipps", client =>
 {
@@ -153,11 +153,11 @@ services
         options.ClientId = config.Authentication.Microsoft.ClientId;
         options.ClientSecret = config.Authentication.Microsoft.ClientSecret;
     })
-    .AddFacebook(options =>
+    /*.AddFacebook(options =>
     {
         options.AppId = config.Authentication.Facebook.AppId;
         options.AppSecret = config.Authentication.Facebook.AppSecret;
-        options.AccessDeniedPath = "/account/accessDenied";
+        options.AccessDeniedPath = "/account/accessDenied"
     })
     /*.AddOpenIdConnect("Vipps", "Vipps", options =>
     {
